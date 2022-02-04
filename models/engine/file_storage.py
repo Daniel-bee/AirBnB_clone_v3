@@ -66,7 +66,14 @@ class FileStorage:
                 del self.__objects[key]
 
     def get(self, cls, id):
-        pass
+        """get the objects of cls """
+        if cls:
+            if cls in classes and list(storage.all(cls).values())[0].id == id:
+                clas = (str(self.__file_path).split("."))
+                return clas[0]
+            return None
+        return None
+
     def count(self, cls=None):
         pass
     def close(self):

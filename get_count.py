@@ -1,7 +1,12 @@
-# This Is task 2
+#!/usr/bin/python3
+from models.engine.file_storage import FileStorage
 
-class DBStorage:
+class get(FileStorage):
     """ Just a class"""
+    def __init__(self):
+        """ Inherits from the filestorage"""
+        super().__init__()
+
     def get(self, cls, id):
         """ This one returns info about the class whose id is 'id' """
         if cls in DBStorage.classes and id == cls.id:
