@@ -72,13 +72,15 @@ class FileStorage:
         ids = "{}.{}".format(cls.__name__, id)
         firstkey = "[{}] ({})".format(cls.__name__, id)
         obj = {}
+        newo = {}
         with open(self.__file_path) as json_file:
             data = json.load(json_file)
             if data[ids]:
                 for key, value in data[ids].items():
                     if key not in ['__class__']:
                         obj[key] = value
-                return obj
+                newo[firstkey] = obj
+                return json.dumps(newo)
         return None
 
     def count(self, cls=None):
