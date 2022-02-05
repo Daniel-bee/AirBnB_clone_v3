@@ -72,6 +72,10 @@ test_db_storage.py'])
         ids = "DanielObed"
         istrue = db_storage.get(cls, ids)
         self.assertEqual(istrue, None)
+    def test_count(self):
+        """ Test method count """
+        notnone = db_storage.count()
+        self.assertFalse(notnone, None)
 
 class TestFileStorage(unittest.TestCase):
     """Test the FileStorage class"""
