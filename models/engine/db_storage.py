@@ -32,7 +32,7 @@ class DBStorage:
         HBNB_MYSQL_HOST = getenv('HBNB_MYSQL_HOST')
         HBNB_MYSQL_DB = getenv('HBNB_MYSQL_DB')
         HBNB_ENV = getenv('HBNB_ENV')
-        self.__engine = create_engine('mysql://{}:{}@{}/{}'.
+        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
                                       format(HBNB_MYSQL_USER,
                                              HBNB_MYSQL_PWD,
                                              HBNB_MYSQL_HOST,
@@ -72,9 +72,25 @@ class DBStorage:
         self.__session = Session
 
     def get(self, cls, id):
-        pass
+        """Return any objects  based on its id """
+        state = self.__session.query(cls).get(id)
+        if state:
+            return state
+        return None
+
     def count(self, cls=None):
-        pass
+        """count the number of objects in storage:"""
+        count = [self.__session.query(User).count(),
+                self.__session.query(State).count(),
+                self.__session.query(Place).count(),
+                self.__session.query(Review).count(),
+                self.__session.query(Amenity).count(),
+                self.__session.query(City).count()]
+        sumvalue = sum(count)
+        if cls == None:
+            return sumvalue
+        return self.__session.query(cls).count()
+
     def close(self):
         """call remove() method on the private session attribute"""
         self.__session.remove()
