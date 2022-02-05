@@ -66,7 +66,16 @@ test_db_storage.py'])
                              "{:s} method needs a docstring".format(func[0]))
             self.assertTrue(len(func[1].__doc__) >= 1,
                             "{:s} method needs a docstring".format(func[0]))
-
+   def test_get(self):
+        """Test for get method"""
+        cls = "City"
+        ids = "DanielObed"
+        istrue = db_storage.get(cls, ids)
+        self.assertEqual(istrue, None)
+    def test_count(self):
+        """ Test method count """
+        notnone = db_storage.count()
+        self.assertFalse(notnone, None)
 
 class TestFileStorage(unittest.TestCase):
     """Test the FileStorage class"""

@@ -81,13 +81,13 @@ class DBStorage:
     def count(self, cls=None):
         """count the number of objects in storage:"""
         count = [self.__session.query(User).count(),
-                self.__session.query(State).count(),
-                self.__session.query(Place).count(),
-                self.__session.query(Review).count(),
-                self.__session.query(Amenity).count(),
-                self.__session.query(City).count()]
+                 self.__session.query(State).count(),
+                 self.__session.query(Place).count(),
+                 self.__session.query(Review).count(),
+                 self.__session.query(Amenity).count(),
+                 self.__session.query(City).count()]
         sumvalue = sum(count)
-        if cls == None:
+        if cls is None:
             return sumvalue
         return self.__session.query(cls).count()
 

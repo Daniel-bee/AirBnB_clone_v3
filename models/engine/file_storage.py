@@ -55,7 +55,7 @@ class FileStorage:
                 jo = json.load(f)
             for key in jo:
                 self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
-        except:
+        except Exception:
             pass
 
     def delete(self, obj=None):
@@ -66,28 +66,13 @@ class FileStorage:
                 del self.__objects[key]
 
     def get(self, cls, id):
-<<<<<<< HEAD
-        """get the objects of cls """
-        if cls:
-            if cls in classes and list(storage.all(cls).values())[0].id == id:
-                clas = (str(self.__file_path).split("."))
-                return clas[0]
-            return None
-=======
-        """Returns the object based on the 
+        """Returns the object based on the
         class and its ID, or None if not found
         """
-        ids = "{}.{}".format(cls.__name__, id)
-        firstkey = "[{}] ({})".format(cls.__name__, id)
-        obj = {}
-        with open(self.__file_path) as json_file:
-            data = json.load(json_file)
-            if data[ids]:
-                for key, value in data[ids].items():
-                    if key not in ['__class__']:
-                        obj[key] = value
-                return obj
->>>>>>> 73d37ad2b4f149016d69c7a1a1ffa79d3493b275
+        ckey = "{}.{}".format(cls.__name__, id)
+        for key, value in self.__objects.items():
+            if ckey == key:
+                return value
         return None
 
     def count(self, cls=None):
@@ -96,7 +81,7 @@ class FileStorage:
         the given class. If no class is passed,
         returns the count of all objects in storage
         """
-        if cls != None:
+        if cls is not None:
             count = 0
             for key, value in self.__objects.items():
                 if cls == value.__class__ or cls == value.__class__.__name__:
