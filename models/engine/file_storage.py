@@ -78,7 +78,7 @@ class FileStorage:
                 for key, value in data[ids].items():
                     if key not in ['__class__']:
                         obj[key] = value
-                return "{} {}".format(firstkey, obj)
+                return obj
         return None
 
     def count(self, cls=None):
