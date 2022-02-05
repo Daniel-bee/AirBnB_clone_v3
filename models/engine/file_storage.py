@@ -69,18 +69,10 @@ class FileStorage:
         """Returns the object based on the
         class and its ID, or None if not found
         """
-        ids = "{}.{}".format(cls.__name__, id)
-        firstkey = "[{}] ({})".format(cls.__name__, id)
-        obj = {}
-        newo = {}
-        with open(self.__file_path) as json_file:
-            data = json.load(json_file)
-            if data[ids]:
-                for key, value in data[ids].items():
-                    if key not in ['__class__']:
-                        obj[key] = value
-                newo[firstkey] = obj
-                return json.dumps(newo)
+        ckey = "{}.{}".format(cls.__name__, id)
+        for key, value in self.__objects.items():
+            if ckey == key:
+                return value
         return None
 
     def count(self, cls=None):
