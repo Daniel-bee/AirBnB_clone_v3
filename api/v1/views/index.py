@@ -14,5 +14,5 @@ def index():
 def obj_count():
     """counts the number of objects in each class"""
     for clss in storage.classes:
-        print(jsonify({clss: storage.all.count()}))
+        print(jsonify({str(clss): storage.all.count()}))
         return
