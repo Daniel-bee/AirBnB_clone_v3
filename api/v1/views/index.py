@@ -1,7 +1,9 @@
 #!/usr/bin/python3
+from flask import jsonify
 from api.v1.views import app_views
 
-@app.route('/status')
-def app_views():
-    json = {"status": "OK"}
-    return json.dumps(json)
+
+@app_views.route('/status')
+def index():
+    """eturns a JSON """
+    return jsonify({"status": "OK"})
