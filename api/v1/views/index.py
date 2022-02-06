@@ -17,5 +17,6 @@ def obj_count():
     of objects in each class"""
     dict_ = {}
     for value in storage.all().values():
-        dict_[value.__class__.__name__.lower()+'s'] = storage.count(value.__class__)
+        cls = value.__class__.__name__.lower()+'s'
+        dict_[cls] = storage.count(value.__class__)
     return jsonify(dict_)
