@@ -21,7 +21,7 @@ def get_states():
 def get_state_byid(state_id):
     """If the state_id is not linked to any State object, raise a 404 error"""
     sta = storage.get(state.State, state_id)
-    if sta is not None:
+    if sta:
         return jsonify(sta.to_dict())
     abort(404)
 
@@ -30,7 +30,7 @@ def get_state_byid(state_id):
                  strict_slashes=False)
 def del_state_object(state_id):
     """If the state_id is not linked to any State object, raise a 404 error"""
-    sate_obj = storage.get(state.State, state_id)
+    state_obj = storage.get(state.State, state_id)
     if not state_obj:
         abort(404)
     else:
