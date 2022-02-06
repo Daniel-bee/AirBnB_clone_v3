@@ -199,6 +199,8 @@ class TestPlace(unittest.TestCase):
         string = "[Place] ({}) {}".format(place.id, place.__dict__)
         self.assertEqual(string, str(place))
 
+class Test_place(unittest.TestCase):
+    """Simple test model"""
     def test_attr(self):
         """Test class attrbute"""
         is_attr = False
