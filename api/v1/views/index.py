@@ -21,6 +21,8 @@ def stats():
     for value in storage.all().values():
         if value.__class__.__name__ == "City":
             cls = "cities"
+        elif value.__class__.__name__ == 'Amenity':
+            cls = 'amenities'
         else:
             cls = '{}s'.format(value.__class__.__name__.lower())
         if track != value.__class__:
