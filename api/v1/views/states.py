@@ -43,12 +43,12 @@ def del_state_object(state_id):
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
 def post_state():
     """Creates a State: POST /api/v1/states"""
-    if not request.get_json():
+    if not request.get_json:
         abort(400, "Not a JSON")
-    elif 'name' not in request.get_json():
+    elif 'name' not in request.get_json:
         abort(400, "Missing name")
     else:
-        newstate = state.State(**request.get_json())
+        newstate = state.State(**request.get_json)
         storage.new(newstate)
         storage.save()
         return jsonify(newstate.to_dict()), 201
@@ -60,10 +60,10 @@ def update_state(state_id):
     data = storage.get(state.State, state_id)
     if not data:
         abort(404)
-    if not request.get_json():
+    if not request.get_json:
         abort(400, "Not a JSON")
     else:
-        for key, value in request.get_json().items():
+        for key, value in request.get_json.items():
             if key not in ['id', 'created_at', 'updated_at']:
                 data.name = value
         storage.save()
