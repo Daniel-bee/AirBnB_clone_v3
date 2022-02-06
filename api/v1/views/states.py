@@ -12,7 +12,7 @@ from models import storage, state
 def get_states():
     """get all states and convert object into a valid JSON"""
     list_ = []
-    for value in storage.all("State").values():
+    for value in storage.all(state.State).values():
         list_.append(value.to_dict())
     return jsonify(list_)
 
