@@ -11,7 +11,7 @@ def index():
     return jsonify({"status": "OK"})
 
 
-@app_views.route('/stats')
+@app_views.route('/stats', methods=['GET'])
 def stats():
     """counts the number:
     of objects in each class
