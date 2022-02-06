@@ -10,9 +10,12 @@ def index():
     """Returns a JSON """
     return jsonify({"status": "OK"})
 
-@app_views.route('/api/vi/stats')
+
+@app_views.route('/stats')
 def obj_count():
-    """counts the number of objects in each class"""
-    for clss in storage.classes:
-        print(jsonify({str(clss): storage.all.count()}))
-        return
+    """counts the number:
+    of objects in each class"""
+    dict_ = {}
+    for value in storage.all().values():
+        dict_[value.__class__.__name__] = storage.count(value.__class__)
+    return dict_
