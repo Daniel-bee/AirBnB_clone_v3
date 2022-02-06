@@ -3,7 +3,7 @@
 from flask import jsonify
 from api.v1.views import app_views
 from models import storage
-
+import json
 
 @app_views.route('/status')
 def index():
@@ -18,4 +18,4 @@ def obj_count():
     dict_ = {}
     for value in storage.all().values():
         dict_[value.__class__.__name__] = storage.count(value.__class__)
-    return dict_
+    return json.dumps(dict_, indent=4)
