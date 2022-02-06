@@ -21,7 +21,7 @@ def get_states():
 def get_state_byid(state_id):
     """If the state_id is not linked to any State object, raise a 404 error"""
     sta = storage.get(state.State, state_id)
-    if stai is not None:
+    if sta is not None:
         return jsonify(sta.to_dict())
     abort(404)
 
