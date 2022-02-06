@@ -64,6 +64,6 @@ def update_state(state_id):
     else:
         for key, value in request.get_json().items():
             if key not in ['id', 'created_at', 'updated_at']:
-                data.key = value
+                data.name = value
         storage.save()
         return jsonify(data.to_dict()), 200
