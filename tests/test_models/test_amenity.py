@@ -33,6 +33,13 @@ class TestAmenityDocs(unittest.TestCase):
         result = pep8s.check_files(['tests/test_models/test_amenity.py'])
         self.assertEqual(result.total_errors, 0,
                          "Found code style errors (and warnings).")
+    def input_file(self, filename, lines=None, expected=None, line_offset=0):
+        if lines is None:
+            assert line_offset == 0
+            line_offset = LINES_SLICE.start or 0
+            lines = pep8.readlines(filename)[LINES_SLICE]
+        return super(PEP8, self).input_file(
+            filename, lines=lines, expected=expected, line_offset=line_offset)
 
     def test_amenity_module_docstring(self):
         """Test for the amenity.py module docstring"""
@@ -104,10 +111,3 @@ class TestAmenity(unittest.TestCase):
         amenity = Amenity()
         string = "[Amenity] ({}) {}".format(amenity.id, amenity.__dict__)
         self.assertEqual(string, str(amenity))
-
-    def test_pep8_conformance(self):
-        """Test that we conform to PEP8."""
-        pep8style = pep8.StyleGuide(quiet=True)
-        result = pep8style.check_files(['file1.py', 'file2.py'])
-        self.assertEqual(result.total_errors, 0,
-                         "Found code style errors (and warnings).")
