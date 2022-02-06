@@ -21,21 +21,20 @@ def get_states():
 def get_state_byid(state_id):
     """If the state_id is not linked to any State object, raise a 404 error"""
     sta = storage.get(state.State, state_id)
-    if sta is not None:
+    if sta:
         return jsonify(sta.to_dict())
-    else:
-        abort(404)
+    abort(404)
 
 
 @app_views.route('/states/<state_id>', methods=['DELETE'],
                  strict_slashes=False)
 def del_state_object(state_id):
     """If the state_id is not linked to any State object, raise a 404 error"""
-    obj = storage.get(state.State, state_id)
-    if obj is None:
+    sate_obj = storage.get(state.State, state_id)
+    if not state_obj:
         abort(404)
     else:
-        storage.delete(obj)
+        storage.delete(state_obj)
         storage.save()
         return jsonify({}), 200
 
@@ -43,7 +42,7 @@ def del_state_object(state_id):
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
 def post_state():
     """Creates a State: POST /api/v1/states"""
-    if request.json is None:
+    if not request.json:
         abort(400, "Not a JSON")
     elif 'name' not in request.json:
         abort(400, "Missing name")
@@ -58,9 +57,9 @@ def post_state():
 def update_state(state_id):
     """Updates a State object: PUT /api/v1/states/<state_id>"""
     data = storage.get(state.State, state_id)
-    if data is None:
+    if not data:
         abort(404)
-    if request.json is None:
+    if not request.json:
         abort(400, "Not a JSON")
     else:
         for key, value in request.json.items():
