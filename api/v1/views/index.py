@@ -12,7 +12,7 @@ def index():
 
 
 @app_views.route('/stats')
-def obj_count():
+def stats():
     """counts the number:
     of objects in each class
     """
