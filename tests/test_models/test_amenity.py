@@ -111,3 +111,12 @@ class TestAmenity(unittest.TestCase):
         amenity = Amenity()
         string = "[Amenity] ({}) {}".format(amenity.id, amenity.__dict__)
         self.assertEqual(string, str(amenity))
+
+    def test_attr(self):
+        attr = hasattr(Amenity, 'name')
+        self.assertEqual(attr, True)
+
+    def test_type(self):
+        """Test the type of State public attr"""
+        type_ = type(Amenity.name).__name__
+        self.assertEqual(type_, "str")
