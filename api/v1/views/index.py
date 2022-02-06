@@ -17,7 +17,10 @@ def stats():
     of objects in each class
     """
     dict_ = {}
+    track = ""
     for value in storage.all().values():
         key = '{}s'.format(value.__class__.__name__.lower())
-        dict_[key] = storage.count(value.__class__)
+        if track != value.__class__:
+            dict_[key] = storage.count(value.__class__)
+        track = value.__class__
     return jsonify(dict_)
