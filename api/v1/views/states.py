@@ -23,7 +23,8 @@ def get_state_byid(state_id):
     sta = storage.get(state.State, state_id)
     if sta:
         return jsonify(sta.to_dict())
-    abort(404)
+    else:
+        abort(404)
 
 
 @app_views.route('/states/<state_id>',
@@ -47,7 +48,7 @@ def post_state():
     elif 'name' not in request.get_json():
         abort(400, "Missing name")
     else:
-        newstate = state.State(**request.get_jsoni())
+        newstate = state.State(**request.get_json())
         storage.new(newstate)
         storage.save()
         return jsonify(newstate.to_dict()), 201
