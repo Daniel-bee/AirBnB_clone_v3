@@ -73,7 +73,7 @@ class DBStorage:
 
     def get(self, cls, id):
         """Return any objects  based on its id """
-        state = self.__session.query(classes[cls]).get(id)
+        state = self.__session.query(classes[cls.__name__]).get(id)
         if state:
             return state
         return None
