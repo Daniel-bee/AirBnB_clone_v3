@@ -66,7 +66,7 @@ test_db_storage.py'])
                              "{:s} method needs a docstring".format(func[0]))
             self.assertTrue(len(func[1].__doc__) >= 1,
                             "{:s} method needs a docstring".format(func[0]))
-   def test_get(self):
+    def test_get(self):
         """Test for get method"""
         cls = "City"
         ids = "DanielObed"
@@ -95,3 +95,9 @@ class TestFileStorage(unittest.TestCase):
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_save(self):
         """Test that save properly saves objects to file.json"""
+
+if __name__ == '__main__':
+    pep8style = PEP8(parse_argv=True, config_file=True)
+    report = pep8style.check_files()
+    if report.total_errors:
+        raise SystemExit(1)
