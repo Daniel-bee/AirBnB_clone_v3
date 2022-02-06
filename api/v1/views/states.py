@@ -21,10 +21,9 @@ def get_states():
 def get_state_byid(state_id):
     """If the state_id is not linked to any State object, raise a 404 error"""
     sta = storage.get(state.State, state_id)
-    if sta:
+    if stai is not None:
         return jsonify(sta.to_dict())
-    else:
-        abort(404)
+    abort(404)
 
 
 @app_views.route('/states/<state_id>', methods=['DELETE'],
