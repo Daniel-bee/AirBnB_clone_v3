@@ -34,16 +34,16 @@ def del_state_object(state_id):
     obj = storage.get(state.State, state_id)
     if not obj:
         abort(404)
-
-    storage.delete(self)
-    storage.save()
-    return jsonify({}), 200
+    else:
+        storage.delete(self)
+        storage.save()
+        return jsonify({}), 200
 
 
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
 def post_state():
     """Creates a State: POST /api/v1/states"""
-    if not request.get_json():
+    if not request.get_json(silent=True):
         abort(400, "Not a JSON")
     elif 'name' not in request.get_json():
         abort(400, "Missing name")
