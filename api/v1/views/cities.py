@@ -56,7 +56,7 @@ def create_city(state_id):
         abort(404)
     if not request.json:
         abort(400, "Not a JSON")
-    elif "name" not in request.json:
+    if "name" not in request.json:
         abort(400, "Missing name")
     else:
         dict_ = {'state_id': state_id}
