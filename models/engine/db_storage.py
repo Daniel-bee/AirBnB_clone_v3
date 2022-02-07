@@ -91,6 +91,13 @@ class DBStorage:
             return sumvalue
         return self.__session.query(cls).count()
 
+    def getCity(self, stateid):
+        """Get city by state id"""
+        city = self.__session.query(classes["City"]).filter(classes["City"].state_id==stateid).all()
+        if city:
+            return city
+        return None
+
     def close(self):
         """call remove() method on the private session attribute"""
         self.__session.remove()
