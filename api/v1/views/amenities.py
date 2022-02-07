@@ -19,7 +19,7 @@ def all_amenities():
 
 @app_views.route('/amenities/<amenity_id>', methods=["GET"],
                  strict_slashes=False)
-def get_amenity(city_id):
+def get_amenity(amenity_id):
     """display an Amenity object"""
     amen = storage.get(amenity.Amenity, amenity_id)
     if amen:
