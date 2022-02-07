@@ -70,7 +70,7 @@ def update_city(city_id):
     """Updates a City object: PUT /api/v1/cities/<city_id>"""
     data = storage.get(city.City, city_id)
     if not request.json:
-        abort(400, "Not a JSON")
+        return jsonify({'error': 'Not a JSON'}), 400
     if data:
         for key, value in request.json.items():
             if key not in ['id', 'state_id', 'created_at', 'updated_at']:
