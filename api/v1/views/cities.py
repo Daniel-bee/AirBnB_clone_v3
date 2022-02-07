@@ -19,8 +19,7 @@ def get_state(state_id):
         for x in sta:
             lis.append(x.to_dict())
         return jsonify(lis)
-    else:
-        abort(404)
+    abort(404)
 
 
 @app_views.route('/cities/<city_id>', methods=["GET"],
@@ -30,8 +29,7 @@ def get_city(city_id):
     cit = storage.get(city.City, city_id)
     if cit:
         return jsonify(cit.to_dict())
-    else:
-        abort(404)
+    abort(404)
 
 
 @app_views.route('/cities/<city_id>', methods=["DELETE"],
@@ -43,8 +41,7 @@ def del_city(city_id):
         storage.delete(gcit)
         storage.save()
         return jsonify({}), 200
-    else:
-        abort(404)
+    abort(404)
 
 
 @app_views.route('/states/<state_id>/cities', methods=["POST"],
@@ -52,13 +49,11 @@ def del_city(city_id):
 def create_city(state_id):
     """Creates a City: POST /api/v1/states/<state_id>/cities"""
     cit = storage.get(state.State, state_id)
-    if cit is None:
-        abort(404)
     if not request.json:
         abort(400, "Not a JSON")
     elif "name" not in request.json:
         abort(400, "Missing name")
-    else:
+    if cit:
         dict_ = {'state_id': state_id}
         for key, value in request.json.items():
             dict_[key] = value
@@ -66,19 +61,19 @@ def create_city(state_id):
         storage.new(newcity)
         storage.save()
         return jsonify(newcity.to_dict()), 201
+    abort(404)
 
 
 @app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
 def update_city(city_id):
     """Updates a City object: PUT /api/v1/cities/<city_id>"""
     data = storage.get(city.City, city_id)
-    if data is None:
-        abort(404)
     if not request.json:
         abort(400, "Not a JSON")
-    else:
+    if data:
         for key, value in request.json.items():
             if key not in ['id', 'state_id', 'created_at', 'updated_at']:
                 data.name = value
         storage.save()
         return jsonify(data.to_dict()), 200
+    abort(404)
