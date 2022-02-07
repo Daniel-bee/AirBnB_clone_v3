@@ -49,10 +49,12 @@ def del_city(city_id):
 def create_city(state_id):
     """Creates a City: POST /api/v1/states/<state_id>/cities"""
     cit = storage.get(state.State, state_id)
+    if not cit:
+        abort(404)
     if not request.json:
-        abort(400, "Not a JSON")
-    elif "name" not in request.json:
-        abort(400, "Missing name")
+        jsonify({'error': 'Not a JSON'}), 400
+    if "name" not in request.json:
+        jsonify({'error': 'Missing name'}), 400
     if cit:
         dict_ = {'state_id': state_id}
         for key, value in request.json.items():
@@ -61,7 +63,6 @@ def create_city(state_id):
         storage.new(newcity)
         storage.save()
         return jsonify(newcity.to_dict()), 201
-    abort(404)
 
 
 @app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
