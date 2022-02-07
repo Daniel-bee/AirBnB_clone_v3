@@ -54,7 +54,7 @@ def create_city(state_id):
     cit = storage.get(state.State, state_id)
     if cit is None:
         abort(404)
-    elif not request.json:
+    if not request.json:
         abort(400, "Not a JSON")
     elif "name" not in request.json:
         abort(400, "Missing name")
@@ -74,7 +74,7 @@ def update_city(city_id):
     data = storage.get(city.City, city_id)
     if data is None:
         abort(404)
-    elif not request.json:
+    if not request.json:
         abort(400, "Not a JSON")
     else:
         for key, value in request.json.items():
