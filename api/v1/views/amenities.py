@@ -13,7 +13,7 @@ def all_amenities():
     """ retrieves a list of all Amenity objects """
     amens = []
     for value in storage.all(amenity.Amenity).values():
-    amens.append(value.to_dict())
+        amens.append(value.to_dict())
         return jsonify(amens)
 
 
