@@ -13,11 +13,13 @@ from models import storage, city, state
 def get_state(state_id):
     """list of all City objects of a State:
     GET /api/v1/states/<state_id>/cities"""
-    state = storage.get('State', state_id)
-    if state:
-        cities = [city.to_dict() for city in state.cities]
-        return (jsonify(cities), 200)
-    abort(404)
+    if sta:
+        lis = []
+        for x in sta:
+            lis.append(x.to_dict())
+        return jsonify(lis)
+    else:
+        abort(404)
 
 
 @app_views.route('/cities/<city_id>', methods=["GET"],
