@@ -52,9 +52,9 @@ def create_city(state_id):
     if not cit:
         abort(404)
     if not request.json:
-        jsonify({'error': 'Not a JSON'}), 400
+        return jsonify({'error': 'Not a JSON'}), 400
     if "name" not in request.json:
-        jsonify({'error': 'Missing name'}), 400
+        return jsonify({'error': 'Missing name'}), 400
     if cit:
         dict_ = {'state_id': state_id}
         for key, value in request.json.items():
