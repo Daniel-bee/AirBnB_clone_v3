@@ -52,13 +52,14 @@ def del_city(city_id):
 def create_city(state_id):
     """Creates a City: POST /api/v1/states/<state_id>/cities"""
     cit = storage.get(state.State, state_id)
-    if not cit:
+    if cit is None:
         abort(404)
+
+    if not request.json:
+        abort(400, "Not a JSON")
 
     if "name" not in request.json:
         abort(400, "Missing name")
-    if not request.json:
-        abort(400, "Not a JSON")
 
     dict_ = {'state_id': state_id}
     for key, value in request.json.items():
@@ -73,13 +74,12 @@ def create_city(state_id):
 def update_city(city_id):
     """Updates a City object: PUT /api/v1/cities/<city_id>"""
     data = storage.get(city.City, city_id)
-    if not data:
+    if data is None:
         abort(404)
     if not request.json:
         abort(400, "Not a JSON")
-    else:
-        for key, value in request.json.items():
-            if key not in ['id', 'state_id' 'created_at', 'updated_at']:
-                data.name = value
-        storage.save()
-        return jsonify(data.to_dict()), 200
+    for key, value in request.json.items():
+        if key not in ['id', 'state_id','created_at', 'updated_at']:
+            data.name = value
+    storage.save()
+    return jsonify(data.to_dict()), 200
