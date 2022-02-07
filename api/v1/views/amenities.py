@@ -14,7 +14,7 @@ def all_amenities():
     amens = []
     for value in storage.all(amenity.Amenity).values():
         amens.append(value.to_dict())
-        return jsonify(amens)
+    return jsonify(amens)
 
 
 @app_views.route('/amenities/<amenity_id>', methods=["GET"],
@@ -56,7 +56,7 @@ def create_amenity():
         return jsonify(new_amen.to_dict()), 201
 
 @app_views.route('/amenities/<amenity_id>', methods=['PUT'],
-        strict_slashes=False)
+                 strict_slashes=False)
 def update_amenity(amenity_id):
     """Updates an Amenity object: PUT /api/v1/amenities/<amenity_id"""
     data = storage.get(amenity.Amenity, amenity_id)
