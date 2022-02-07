@@ -54,20 +54,18 @@ def create_city(state_id):
     cit = storage.get(state.State, state_id)
     if cit is None:
         abort(404)
-
-    if not request.json:
+    elif not request.json:
         abort(400, "Not a JSON")
-
-    if "name" not in request.json:
+    elif "name" not in request.json:
         abort(400, "Missing name")
-
-    dict_ = {'state_id': state_id}
-    for key, value in request.json.items():
-        dict_[key] = value
-    newcity = city.City(**dict_)
-    storage.new(newcity)
-    storage.save()
-    return jsonify(newcity.to_dict()), 201
+    else:
+        dict_ = {'state_id': state_id}
+        for key, value in request.json.items():
+            dict_[key] = value
+        newcity = city.City(**dict_)
+        storage.new(newcity)
+        storage.save()
+        return jsonify(newcity.to_dict()), 201
 
 
 @app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
@@ -76,10 +74,11 @@ def update_city(city_id):
     data = storage.get(city.City, city_id)
     if data is None:
         abort(404)
-    if not request.json:
+    elif not request.json:
         abort(400, "Not a JSON")
-    for key, value in request.json.items():
-        if key not in ['id', 'state_id', 'created_at', 'updated_at']:
-            data.name = value
-    storage.save()
-    return jsonify(data.to_dict()), 200
+    else:
+        for key, value in request.json.items():
+            if key not in ['id', 'state_id', 'created_at', 'updated_at']:
+                data.name = value
+        storage.save()
+        return jsonify(data.to_dict()), 200
