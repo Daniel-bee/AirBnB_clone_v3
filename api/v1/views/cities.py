@@ -54,10 +54,11 @@ def create_city(state_id):
     cit = storage.get(state.State, state_id)
     if not cit:
         abort(404)
-    if not request.json:
-        abort(400, "Not a JSON")
+
     if "name" not in request.json:
         abort(400, "Missing name")
+    if not request.json:
+        abort(400, "Not a JSON")
     else:
         dict_ = {'state_id': state_id}
         for key, value in request.json.items():
