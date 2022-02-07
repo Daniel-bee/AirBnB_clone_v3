@@ -93,8 +93,7 @@ class DBStorage:
 
     def getCity(self, stateid):
         """Get city by state id"""
-        city = self.__session.query(classes["City"]).filter(
-                classes["City"].state_id==stateid).all()
+        city = self.__session.query(classes["City"]).filter(classes["City"].state_id==stateid).all()
         if city:
             return city
         return None
