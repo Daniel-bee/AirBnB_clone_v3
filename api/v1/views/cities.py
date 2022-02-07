@@ -37,7 +37,7 @@ def get_city(city_id):
 def del_city(city_id):
     """Deletes a City object: DELETE /api/v1/cities/<city_id>"""
     cit = storage.get(city.City, city_id)
-    if not cit:
+    if cit:
         storage.delete(cit)
         storage.save()
         return jsonify({}), 200
