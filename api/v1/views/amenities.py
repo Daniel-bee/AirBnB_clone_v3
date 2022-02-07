@@ -41,21 +41,21 @@ def del_amenity(amenity_id):
         abort(404)
 
 
-@app_views.route('/states/<state_id>/cities', methods=["POST"],
+@app_views.route('/amenities', methods=["POST"],
                  strict_slashes=False)
-def create_amenity(state_id):
+def create_amenity():
     """Creates an Amenity: POST /api/v1/amenities"""
     if not request.json:
         abort(400, "Not a JSON")
     elif "name" not in request.json:
         abort(400, "Missing name")
     else:
-        new_amen = amenities.Amenity(**request.json)
+        new_amen = amenity.Amenity(**request.json)
         storage.new(new_amen)
         storage.save()
         return jsonify(new_amen.to_dict()), 201
 
-@app_views.route('/amenities/amenity_id>', methods=['PUT'],
+@app_views.route('/amenities/<amenity_id>', methods=['PUT'],
         strict_slashes=False)
 def update_amenity(amenity_id):
     """Updates an Amenity object: PUT /api/v1/amenities/<amenity_id"""
