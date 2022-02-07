@@ -48,14 +48,14 @@ def del_city(city_id):
                  strict_slashes=False)
 def create_city(state_id):
     """Creates a City: POST /api/v1/states/<state_id>/cities"""
+    cit = storage.get(state.State, state_id)
+    if not cit:
+        abort(404)
     if not request.json:
         abort(400, "Not a JSON")
     elif 'name' not in request.json:
         abort(400, 'Missing name')
     else:
-        cit = storage.get(state.State, state_id)
-        if not cit:
-            abort(404)
         dict_ = {'state_id': state_id}
         for key, value in request.json.items():
             dict_[key] = value
