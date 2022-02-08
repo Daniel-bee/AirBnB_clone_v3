@@ -23,7 +23,7 @@ def get_place(city_id):
 
 @app_views.route('/places/<place_id>', methods=["GET"],
                  strict_slashes=False)
-def get_place(place_id):
+def get_places(place_id):
     """list a place"""
     plc = storage.get(place.Place, place_id)
     if plc:
