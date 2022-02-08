@@ -55,6 +55,7 @@ def create_amenity():
         storage.save()
         return jsonify(new_amen.to_dict()), 201
 
+
 @app_views.route('/amenities/<amenity_id>', methods=['PUT'],
                  strict_slashes=False)
 def update_amenity(amenity_id):
