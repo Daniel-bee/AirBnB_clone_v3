@@ -16,8 +16,8 @@ def get_state(state_id):
     sta = storage.getCity(state_id)
     if sta:
         lis = []
-        for x in sta:
-            lis.append(x.to_dict())
+        for dictvalue in sta:
+            lis.append(dictvalue.to_dict())
         return jsonify(lis)
     abort(404)
 
