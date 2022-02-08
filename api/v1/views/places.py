@@ -12,11 +12,11 @@ from models import storage, city, place, user
                  strict_slashes=False)
 def get_place(city_id):
     """list of all Place objects of a State"""
-    cty = storage.getPlace(city_id)
+    cty = storage.getPlace(place.Place, city_id)
     if cty:
         lis = []
-        for x in cty:
-            lis.append(x.to_dict())
+        for placedict in cty:
+            lis.append(placedict.to_dict())
         return jsonify(lis)
     abort(404)
 
