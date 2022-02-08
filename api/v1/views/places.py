@@ -78,7 +78,7 @@ def update_place(place_id):
     if data:
         for key, value in request.json.items():
             if key not in ['id', 'place_id', 'created_at', 'updated_at']:
-                data.name = value
+                setattr(data, key, value)
         storage.save()
         return jsonify(data.to_dict()), 200
     abort(404)
