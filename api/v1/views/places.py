@@ -27,7 +27,8 @@ def get_places(place_id):
     """list a place"""
     plc = storage.get(place.Place, place_id)
     if plc:
-        return jsonify(plc.to_dict())
+        plc.to_dict()
+        return jsonify(plc)
     abort(404)
 
 
