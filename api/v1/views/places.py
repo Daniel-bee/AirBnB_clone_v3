@@ -12,7 +12,7 @@ from models import storage, city, place, user
                  strict_slashes=False)
 def get_place(city_id):
     """list of all Place objects of a State"""
-    cty = storage.getPlace(place.Place, city_id)
+    cty = storage.getPlace(city_id)
     if cty:
         lis = []
         for placedict in cty:
