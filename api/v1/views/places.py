@@ -53,9 +53,9 @@ def create_place(city_id):
         abort(404)
     if not request.json:
         return jsonify({'error': 'Not a JSON'}), 400
-    elif "name" not in request.json:
+    if "name" not in request.json:
         return jsonify({'error': 'Missing name'}), 400
-    elif "user_id" not in request.json:
+    if "user_id" not in request.json:
         return jsonify({'error': 'Missing user_id'}), 400
     if not storage.get(user.User, user_id):
         abort(404)
