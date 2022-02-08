@@ -91,18 +91,20 @@ class DBStorage:
             return sumvalue
         return self.__session.query(cls).count()
 
-    def getCity(self, stateid):
+    def getCity(self, cls, id):
         """Get city by state id"""
-        city = self.__session.query(City).filter(City.state_id == stateid).all()
-        if city:
-            return city
+        data = self.__session.query(classes[cls.__name__]).filter(
+                                    classes[cls.__name__].state_id == id).all()
+        if data:
+            return data
         return None
 
-    def getPlace(self, cityid):
-        """Get place by city id"""
-        plc = self.__session.query(Place).filter(Place.city_id == cityid).all()
-        if plc:
-            return plc
+    def getPlace(self, cls, id):
+        """Get city by state id"""
+        data = self.__session.query(classes[cls.__name__]).filter(
+                                    classes[cls.__name__].city_id == id).all()
+        if data:
+            return data
         return None
 
     def close(self):
