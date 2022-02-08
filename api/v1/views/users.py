@@ -66,6 +66,6 @@ def update_user(user_id):
     else:
         for key, value in request.json.items():
             if key not in ['id', 'email', 'created_at', 'updated_at']:
-                data.name = value
+                data.key = value
         storage.save()
         return jsonify(data.to_dict()), 200
