@@ -98,6 +98,13 @@ class DBStorage:
             return city
         return None
 
+    def getPlace(self, cityid):
+        """Get place by city id"""
+        plc = self.__session.query(Place).filter(Place.city_id == cityid).all()
+        if plc:
+            return plc
+        return None
+
     def close(self):
         """call remove() method on the private session attribute"""
         self.__session.remove()
