@@ -13,7 +13,7 @@ from models import storage, city, state
 def get_state(state_id):
     """list of all City objects of a State:
     GET /api/v1/states/<state_id>/cities"""
-    sta = storage.getCity(state_id)
+    sta = storage.getData(city.City ,state_id)
     if sta:
         lis = []
         for dictvalue in sta:
