@@ -62,7 +62,7 @@ def create_place(city_id):
     if plc:
         dict_ = {'city_id': city_id}
         for key, value in request.json.items():
-            dict_[key] = value
+            setattr(dict_, key, value)
         new_place = place.Place(**dict_)
         storage.new(new_place)
         storage.save()
