@@ -16,8 +16,8 @@ def get_state(state_id):
     sta = storage.getCity(state_id)
     if sta:
         lis = []
-        for x in sta:
-            lis.append(x.to_dict())
+        for dictvalue in sta:
+            lis.append(dictvalue.to_dict())
         return jsonify(lis)
     abort(404)
 
@@ -74,7 +74,7 @@ def update_city(city_id):
     if data:
         for key, value in request.json.items():
             if key not in ['id', 'state_id', 'created_at', 'updated_at']:
-                data.name = value
+                setattr(data, key, value)
         storage.save()
         return jsonify(data.to_dict()), 200
     abort(404)

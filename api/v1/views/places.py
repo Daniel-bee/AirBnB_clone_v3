@@ -15,8 +15,8 @@ def get_place(city_id):
     cty = storage.getPlace(city_id)
     if cty:
         lis = []
-        for x in cty:
-            lis.append(x.to_dict())
+        for placedict in cty:
+            lis.append(placedict.to_dict())
         return jsonify(lis)
     abort(404)
 
@@ -27,7 +27,8 @@ def get_places(place_id):
     """list a place"""
     plc = storage.get(place.Place, place_id)
     if plc:
-        return jsonify(plc.to_dict())
+        plc.to_dict()
+        return jsonify(plc)
     abort(404)
 
 
@@ -52,16 +53,16 @@ def create_place(city_id):
         abort(404)
     if not request.json:
         return jsonify({'error': 'Not a JSON'}), 400
-    elif "name" not in request.json:
+    if "name" not in request.json:
         return jsonify({'error': 'Missing name'}), 400
-    elif "user_id" not in request.json:
+    if "user_id" not in request.json:
         return jsonify({'error': 'Missing user_id'}), 400
     if not storage.get(user.User, user_id):
         abort(404)
     if plc:
         dict_ = {'city_id': city_id}
         for key, value in request.json.items():
-            dict_[key] = value
+            setattr(dict_, key, value)
         new_place = place.Place(**dict_)
         storage.new(new_place)
         storage.save()
@@ -77,7 +78,7 @@ def update_place(place_id):
     if data:
         for key, value in request.json.items():
             if key not in ['id', 'place_id', 'created_at', 'updated_at']:
-                data.name = value
+                setattr(data, key, value)
         storage.save()
         return jsonify(data.to_dict()), 200
     abort(404)

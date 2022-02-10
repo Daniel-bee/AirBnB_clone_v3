@@ -55,6 +55,7 @@ def create_amenity():
         storage.save()
         return jsonify(new_amen.to_dict()), 201
 
+
 @app_views.route('/amenities/<amenity_id>', methods=['PUT'],
                  strict_slashes=False)
 def update_amenity(amenity_id):
@@ -67,6 +68,6 @@ def update_amenity(amenity_id):
     else:
         for key, value in request.json.items():
             if key not in ['id', 'created_at', 'updated_at']:
-                data.name = value
+                setattr(data, key, value)
         storage.save()
         return jsonify(data.to_dict()), 200
